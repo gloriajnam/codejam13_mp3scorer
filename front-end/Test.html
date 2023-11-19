@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalistic Drag and Drop</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000000; /* Inverted background color */
+            color: #f4f4f4; /* Inverted text color */
+            flex-direction: column;
+            position: relative;
+        }
+
+        #title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            margin-bottom: 25px;
+            color: #f4f4f4; /* Inverted text color */
+        }
+
+        .header-container {
+            position: absolute;
+            top: 10px;
+            right: 0px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-container nav {
+            margin-right: 20px; /* Add space between the two nav elements */
+        }
+
+        header a {
+            color: #f4f4f4; /* Inverted header link color */
+            text-decoration: none;
+            margin-right: 20px;
+            display: block;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+            margin: 10px;
+            background-color: #000000;
+            /*border: 1px solid #f4f4f4;*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+            color: #f4f4f4;
+            overflow: hidden; /* Added overflow to ensure image fits */
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the box */
+        }
+
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+
+      #drop-zone {
+          border: 2px dashed #f4f4f4; /* Inverted border color */
+          padding: 20px;
+          text-align: center;
+          cursor: pointer;
+          position: relative;
+          margin-top: 40px; /* Adjusted margin to keep it in position */
+          color: #f4f4f4; /* Inverted text color */
+      }
+
+      #loading-bar-container {
+            display: none; /* Hide initially */
+            position: absolute; /* Positioned absolutely */
+            bottom: 120px; /* Adjusted position */
+        }
+
+        #download-button {
+            display: none; /* Hide initially */
+            position: absolute; /* Positioned absolutely */
+            bottom: 120px; /* Same position as the loading bar */
+            left: 50%; /* Align to the center */
+            transform: translateX(-50%);
+        }
+
+      .box-container {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-top: 60px; /* Adjusted margin to keep it in position */
+      }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <header b>
+            <nav>
+                <a href="Test.html">Home</a>
+            </nav>
+        </header>
+        <header>
+            <nav>
+                <a href="About US.html">About Us</a>
+            </nav>
+        </header>
+    </div>
+
+
+
+<div id="title">MP3Scorer</div>
+
+
+<div>
+    <button id="download-button" onclick="a()">Generate</button>
+</div>
+
+<div class="box-container">
+    <div class="box" data-og-image="https://cdn.discordapp.com/attachments/1174819125802053742/1175546991195979776/IMG_4578.png?ex=656ba073&is=65592b73&hm=800e0ca0b07a110e26a783469ebbfbcd2a9ec69d1c83b546efd5b1a3ea88ba17&" data-new-image="https://cdn.discordapp.com/attachments/1175624583299207180/1175745233292644382/IMG_4578.jpg?ex=656c5913&is=6559e413&hm=c9e1e32a5b6cafc2c67e74655f31562f30de1267a2e0fd33d1f28290d2a7ff5e&" onclick="changeImage(this)">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175546991195979776/IMG_4578.png?ex=656ba073&is=65592b73&hm=800e0ca0b07a110e26a783469ebbfbcd2a9ec69d1c83b546efd5b1a3ea88ba17&" alt="Cello">
+    </div>
+    <div class="box" data-og-image="https://cdn.discordapp.com/attachments/1174819125802053742/1175547528872210552/IMG_4584.png?ex=656ba0f3&is=65592bf3&hm=23109497931f3700dd73d5722e781324848f5645500204286713d7bc36efe7c9&" data-new-image="https://cdn.discordapp.com/attachments/1175624583299207180/1175745233133248533/IMG_4584.jpg?ex=656c5913&is=6559e413&hm=0f4c39eb720f26e1eb3ebdd146948c35c7bed07ac6c1c228df61e0920d664710&" onclick="changeImage(this)">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175547528872210552/IMG_4584.png?ex=656ba0f3&is=65592bf3&hm=23109497931f3700dd73d5722e781324848f5645500204286713d7bc36efe7c9&" alt="Drums">
+    </div>
+    <div class="box" data-og-image="https://cdn.discordapp.com/attachments/1174819125802053742/1175546363765854258/IMG_4581.png?ex=656b9fdd&is=65592add&hm=35ed134342e725c83e6fe8c7a69460b1d68ae748f0d974e01e43e485e4cf3e11&" data-new-image="https://cdn.discordapp.com/attachments/1175624583299207180/1175745233863065671/IMG_4581.jpg?ex=656c5914&is=6559e414&hm=0cecac62b7e767f100f4658e53ba38230e7571938265611040227d07c89de250&" onclick="changeImage(this)">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175546363765854258/IMG_4581.png?ex=656b9fdd&is=65592add&hm=35ed134342e725c83e6fe8c7a69460b1d68ae748f0d974e01e43e485e4cf3e11&" alt="Violin">
+    </div>
+    <div class="box" data-og-image="https://cdn.discordapp.com/attachments/1174819125802053742/1175546364101415035/IMG_4582.png?ex=656b9fdd&is=65592add&hm=ad520944560ed5fe74078cbc78598334fe5b63cf34ed64d2d9bea397446dfa93&" data-new-image="https://cdn.discordapp.com/attachments/1175624583299207180/1175745233468805210/IMG_4582.jpg?ex=656c5913&is=6559e413&hm=a61c4a4918016d2456b8e04a4a5145475bb6efcc3df16d1d6f820c7a0231837c&" onclick="changeImage(this)">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175546364101415035/IMG_4582.png?ex=656b9fdd&is=65592add&hm=ad520944560ed5fe74078cbc78598334fe5b63cf34ed64d2d9bea397446dfa93&" alt="Piano">
+    </div>
+    <div class="box" data-og-image="https://cdn.discordapp.com/attachments/1174819125802053742/1175547765397389423/IMG_4583.png?ex=656ba12b&is=65592c2b&hm=93df4dc751219266a2e0a9425b87b56d8c4b40149b6f03305227c548a10ac90d&" data-new-image="https://cdn.discordapp.com/attachments/1175624583299207180/1175745233456201809/IMG_4583.jpg?ex=656c5913&is=6559e413&hm=15cd04b9dda14bc9dc7c22903a841dc242ae9cc2073ddd76b140d76d5795a472&" onclick="changeImage(this)">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175547765397389423/IMG_4583.png?ex=656ba12b&is=65592c2b&hm=93df4dc751219266a2e0a9425b87b56d8c4b40149b6f03305227c548a10ac90d&" alt="Saxophone">
+    </div>
+</div>
+
+<div id="drop-zone" onclick="openFileInput()">
+    <p id="drop-text">Drag and drop a file here, or click to select files</p>
+    <input type="file" id="file-input" style="display: none">
+</div>
+
+<div id="loading-bar-container">
+    <div id="loading-bar"></div>
+</div>
+
+
+<script>
+    function a() {
+    // Send a request to the backend to get the file
+    fetch('http://127.0.0.1:5000/getFile', {
+        method: 'GET',
+    })
+    .then(response => {
+        // Check if response is successful
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        // Return the response body as text
+        return response.text();
+    })
+    .then(textData => {
+        // Convert the text response to a list
+        const dataList = textData.split('\n'); // Assuming each line is an element of the list
+
+        // Create a JavaScript formatted file
+        let javascriptFile = 'const myList = [\n';
+        dataList.forEach(element => {
+            javascriptFile += `    '${element.trim()}',\n`; // Assuming each line is a string element in the JavaScript array
+        });
+        javascriptFile += '];';
+
+        // Convert the JavaScript file content to a Blob
+        const blob = new Blob([javascriptFile], { type: 'text/javascript' });
+
+        // Create a download link for the file
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'downloaded_file.js'; // Set the downloaded file's name with the JS extension
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+
+        // Redirect the page after the download
+        window.location.href = 'https://www.sheetmusicnow.com/cdn/shop/products/e7df1078a66d3f7535eb2d8f51d8c536_800x.png?v=1561706193';
+    })
+    .catch(error => {
+        // Handle errors
+        console.error('There was an error:', error);
+    });
+}
+
+    function openFileInput() {
+        document.getElementById('file-input').click();
+    }
+
+    document.getElementById('drop-zone').addEventListener('dragover', (e) => {
+        e.preventDefault();
+        document.getElementById('drop-zone').classList.add('drag-over');
+    });
+
+    document.getElementById('drop-zone').addEventListener('dragleave', () => {
+        document.getElementById('drop-zone').classList.remove('drag-over');
+    });
+
+    document.getElementById('drop-zone').addEventListener('drop', (e) => {
+        e.preventDefault();
+        document.getElementById('drop-zone').classList.remove('drag-over');
+        handleFiles(e.dataTransfer.files);
+    });
+
+    document.getElementById('file-input').addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+    });
+
+    function handleFiles(files) {
+        if (files.length > 0) {
+            const file = files[0];
+            if (file.type !== 'audio/mpeg' && file.type !== 'audio/midi') {
+    alert('Only MP3 or MIDI files are allowed!');
+    return;
+}
+
+            showProgressBar(); // Display the progress bar
+            uploadFile(file);
+
+            document.getElementById('drop-text').innerText = file.name;
+        }
+    }
+
+    function uploadFile(file) {
+    const loadingBar = document.getElementById('loading-bar');
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    xhr.open('POST', 'http://127.0.0.1:5000/upload', true);
+
+    xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+            const percent = (e.loaded / e.total) * 100;
+            loadingBar.style.width = percent + '%';
+        }
+    };
+
+    xhr.onload = () => {
+                hideProgressBar();
+                showDownloadButton(); // Show download button after upload
+                // Handle the response from the server if needed
+                console.log(xhr.responseText);
+            };
+
+    xhr.send(formData);
+}
+
+function showDownloadButton() {
+            document.getElementById('download-button').style.display = 'block';
+        }
+
+        function hideDownloadButton() {
+            document.getElementById('download-button').style.display = 'none';
+        }
+
+        function hideProgressBar() {
+            document.getElementById('loading-bar-container').style.display = 'none';
+        }
+
+        // Modify the functions to show/hide download button instead of loading bar
+        function showProgressBar() {
+            hideDownloadButton();
+            document.getElementById('loading-bar-container').style.display = 'block';
+        }
+
+let selectedBox = null;
+function changeImage(element) {
+    if (selectedBox) {
+        // Revert the previously selected box to its original image
+        const originalImageUrl = selectedBox.getAttribute('data-og-image');
+        selectedBox.querySelector('img').src = originalImageUrl;
+    }
+
+    // Get the new image URL from the data-new-image attribute
+    const newImageUrl = element.getAttribute('data-new-image');
+
+    // Set the image source of the clicked box to the new image
+    element.querySelector('img').src = newImageUrl;
+
+    // Update the selectedBox variable to the currently clicked box
+    selectedBox = element;
+}
+
+</script>
+
+
+
+</body>
+</html>
+

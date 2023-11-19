@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Scrolling with Background Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: #f4f4f4; /* Inverted text color */
+            font-family: Arial, sans-serif;
+            background-image: url('https://cdn.discordapp.com/attachments/1175624583299207180/1175681868595736666/Your_paragraph_text.jpg?ex=656c1e10&is=6559a910&hm=ef25ced9ea451a517492146feb0233ba974fb4d6c2f7f4596332aa73edc5efb1&'); /* Replace 'path_to_your_image.jpg' with your image URL */
+            background-size: cover;
+            background-attachment: scroll;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .header-container {
+            position: absolute;
+            top: 10px;
+            right: 0px;
+            display: flex;
+            align-items: center;
+            color: #f4f4f4; /* Inverted text color */
+        }
+        .header-container nav {
+            margin-right: 40px; /* Add space between the two nav elements */
+        }
+
+        .header-container nav a {
+            color: #f4f4f4; /* Text color for 'Home' and 'About Us' */
+            text-decoration: none;
+        }
+
+        .content {
+            white-space: nowrap;
+            height: 225vh; /* Adjust the height as per your content or image */
+            /* Other styles for your content */
+            color: white;
+            text-align: center;
+            padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <header b>
+            <nav>
+                <a href="Test.html">Home</a>
+            </nav>
+        </header>
+        <header>
+            <nav>
+                <a href="About US.html">About Us</a>
+            </nav>
+        </header>
+    </div>
+
+    <div class="content">
+        
+    </div>
+</body>
+</html>

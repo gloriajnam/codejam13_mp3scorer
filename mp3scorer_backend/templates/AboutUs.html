@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Scrolling with Background Image</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            color: #f4f4f4; /* Inverted text color */
+            font-family: Arial, sans-serif;
+            background-image: url('https://cdn.discordapp.com/attachments/1175624609404563667/1175625713018220545/Users_isabelleho_Downloads_Site1_Home.html_2.png?ex=656be9c4&is=655974c4&hm=3be84d95d8d2e06f8b15f06c809647385d7d9a90c3df8d40fc891b7b42c50020&'); /* Replace 'path_to_your_image.jpg' with your image URL */
+            background-size: cover;
+            background-attachment: scroll;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .header-container {
+            position: absolute;
+            top: 10px;
+            right: 0px;
+            display: flex;
+            align-items: center;
+            color: #f4f4f4; /* Inverted text color */
+        }
+        .header-container nav {
+            margin-right: 40px; /* Add space between the two nav elements */
+        }
+
+        .header-container nav a {
+            color: #f4f4f4; /* Text color for 'Home' and 'About Us' */
+            text-decoration: none;
+        }
+
+        .content {
+            white-space: nowrap;
+            height: 200vh; /* Adjust the height as per your content or image */
+            /* Other styles for your content */
+            color: white;
+            text-align: center;
+            padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <header b>
+            <nav>
+                <a href="Test.html">Home</a> 
+            </nav>
+        </header>
+        <header>
+            <nav>
+                <a href="file:///Users/anqi/Desktop/Drag%20and%20Drop%20Box/About%20US.html">About Us</a>
+            </nav>
+        </header>
+    </div>
+
+    <div class="content">
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalistic Drag and Drop</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000000; /* Inverted background color */
+            color: #f4f4f4; /* Inverted text color */
+            flex-direction: column;
+            position: relative;
+        }
+
+        #title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5em;
+            margin-bottom: 25px;
+            color: #f4f4f4; /* Inverted text color */
+        }
+
+        .header-container {
+            position: absolute;
+            top: 10px;
+            right: 0px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-container nav {
+            margin-right: 20px; /* Add space between the two nav elements */
+        }
+
+        header a {
+            color: #f4f4f4; /* Inverted header link color */
+            text-decoration: none;
+            margin-right: 20px;
+            display: block;
+        }
+
+        .box-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .box {
+            width: 80px;
+            height: 80px;
+            margin: 10px;
+            background-color: #000000;
+            /*border: 1px solid #f4f4f4;*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease;
+            color: #f4f4f4;
+            overflow: hidden; /* Added overflow to ensure image fits */
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the box */
+        }
+
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+
+      #drop-zone {
+          border: 2px dashed #f4f4f4; /* Inverted border color */
+          padding: 20px;
+          text-align: center;
+          cursor: pointer;
+          position: relative;
+          margin-top: 40px; /* Adjusted margin to keep it in position */
+          color: #f4f4f4; /* Inverted text color */
+      }
+
+      #loading-bar-container {
+          width: 376px;
+          height: 20px;
+          margin-bottom: 10px; /* Adjusted margin to maintain the layout */
+          border: 1px solid #f4f4f4; /* Inverted border color */
+          overflow: hidden;
+          display: none; /* Hide initially */
+          position: absolute; /* Positioned absolutely */
+          bottom: 120px; /* Adjusted position */
+      }
+
+      .box-container {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-top: 60px; /* Adjusted margin to keep it in position */
+      }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <header b>
+            <nav>
+                <a href="Test.html">Home</a>
+            </nav>
+        </header>
+        <header>
+            <nav>
+                <a href="AboutUs.html">About Us</a>
+            </nav>
+        </header>
+    </div>
+
+
+
+<div id="title">MP3Scorer</div>
+
+<div class="box-container">
+    <div class="box">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175546991195979776/IMG_4578.png?ex=656ba073&is=65592b73&hm=800e0ca0b07a110e26a783469ebbfbcd2a9ec69d1c83b546efd5b1a3ea88ba17&" alt="Cello">
+    </div>
+    <div class="box">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175547528872210552/IMG_4584.png?ex=656ba0f3&is=65592bf3&hm=23109497931f3700dd73d5722e781324848f5645500204286713d7bc36efe7c9&" alt="Drums">
+    </div>
+    <div class="box">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175546363765854258/IMG_4581.png?ex=656b9fdd&is=65592add&hm=35ed134342e725c83e6fe8c7a69460b1d68ae748f0d974e01e43e485e4cf3e11&" alt="Guitar">
+    </div>
+    <div class="box">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175546364101415035/IMG_4582.png?ex=656b9fdd&is=65592add&hm=ad520944560ed5fe74078cbc78598334fe5b63cf34ed64d2d9bea397446dfa93&" alt="Piano">
+    </div>
+    <div class="box">
+        <img src="https://cdn.discordapp.com/attachments/1174819125802053742/1175547765397389423/IMG_4583.png?ex=656ba12b&is=65592c2b&hm=93df4dc751219266a2e0a9425b87b56d8c4b40149b6f03305227c548a10ac90d&" alt="Saxophone">
+    </div>
+</div>
+
+<div id="drop-zone" onclick="openFileInput()">
+    <p>Drag and drop a file here, or click to select files</p>
+    <input type="file" id="file-input" style="display: none">
+</div>
+
+<div id="loading-bar-container" style="display: none;">
+    <div id="loading-bar"></div>
+</div>
+
+<script>
+    function openFileInput() {
+        document.getElementById('file-input').click();
+    }
+
+    document.getElementById('drop-zone').addEventListener('dragover', (e) => {
+        e.preventDefault();
+        document.getElementById('drop-zone').classList.add('drag-over');
+    });
+
+    document.getElementById('drop-zone').addEventListener('dragleave', () => {
+        document.getElementById('drop-zone').classList.remove('drag-over');
+    });
+
+    document.getElementById('drop-zone').addEventListener('drop', (e) => {
+        e.preventDefault();
+        document.getElementById('drop-zone').classList.remove('drag-over');
+        handleFiles(e.dataTransfer.files);
+    });
+
+    document.getElementById('file-input').addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+    });
+
+    function handleFiles(files) {
+        if (files.length > 0) {
+            const file = files[0];
+            if (file.type !== 'audio/mpeg') {
+                alert('Only MP3 files are allowed!');
+                return;
+            }
+            showProgressBar(); // Display the progress bar
+            uploadFile(file);
+        }
+    }
+    /*function uploadMP3() {
+      const mp3Input = document.getElementById('mp3Input');
+      const mp3File = mp3Input.files[0];
+      const formData = new FormData();
+      formData.append('mp3File', mp3File);
+
+      fetch('/upload_mp3', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        // Handle response from the Flask backend
+        console.log('MP3 file uploaded successfully');
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch
+        console.error('Error uploading MP3 file:', error);
+      });
+    }*/
+
+    function uploadFile(file) {
+    const loadingBar = document.getElementById('loading-bar');
+    /*const mp3File = loadingBar.files[0];*/
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    xhr.open('POST', 'http://127.0.0.1:5000/upload', true); // Change the URL here
+
+    /*fetch('/upload_mp3', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        // Handle response from the Flask backend
+        console.log('MP3 file uploaded successfully');
+      })
+      .catch(error => {
+        // Handle any errors that occurred during the fetch
+        console.error('Error uploading MP3 file:', error);
+      });*/
+
+    xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+            const percent = (e.loaded / e.total) * 100;
+            loadingBar.style.width = percent + '%';
+        }
+    };
+
+    xhr.onload = () => {
+        hideProgressBar();
+        // Handle the response from the server if needed
+        console.log(xhr.responseText);
+    };
+
+    xhr.send(formData);
+}
+
+    function showProgressBar() {
+        document.getElementById('loading-bar-container').style.display = 'block';
+    }
+
+    function hideProgressBar() {
+        document.getElementById('loading-bar-container').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
